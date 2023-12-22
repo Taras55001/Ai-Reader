@@ -1,4 +1,4 @@
 config.ini
-chat/.env
+ChatMaster/.env
 poetry.lock
 pyproject.toml
