@@ -1,0 +1,4 @@
+config.ini
+chat/.env
+poetry.lock
+pyproject.toml
