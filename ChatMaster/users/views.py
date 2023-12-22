@@ -9,7 +9,7 @@ from .forms import RegisterForm, LoginForm
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'users/base.html')
 
 
 def login_s(request):
@@ -45,5 +45,16 @@ def logoutuser(request):
     logout(request)
     return redirect(to='users:profile')
 
+def delete(request):
+    
+    return render(request, 'users/profile.html')
+
+def changed(request):
+    
+    return render(request, 'users/profile.html')
+
+
+
 def profile(request):
+
     return render(request, 'users/profile.html')
