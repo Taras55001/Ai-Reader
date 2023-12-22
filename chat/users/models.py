@@ -6,3 +6,6 @@ class User(models.Model):
     password = models.CharField(max_length=200)
     creat_at=models.DateTimeField('date published')
     chat=models.CharField(max_length=200)
+
+class Blacklist(models.Model):
+    email = models.CharField(max_length=200)
