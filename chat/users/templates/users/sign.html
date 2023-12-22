@@ -21,8 +21,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email:</label>
+
                             {{ form.email }}
                             <span>{{ form.errors.email }}</span>
+                            {{error_message}}
                         </div>
                         <div class="mb-3">
                             <label for="password1" class="form-label">Password:</label>
