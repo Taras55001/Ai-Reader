@@ -46,8 +46,4 @@ def logoutuser(request):
     return redirect(to='users:profile')
 
 def profile(request):
-    template = loader.get_template('users/profile.html')
-    context = {
-        'latest_question_list': latest_question_list,
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'users/profile.html')
