@@ -2,3 +2,4 @@ config.ini
 ChatMaster/.env
 poetry.lock
 pyproject.toml
+.idea
