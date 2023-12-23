@@ -11,7 +11,7 @@ from django.http import JsonResponse
 import json
 
 def index(request):
-    return render(request, 'users/base.html')
+    return render(request, 'users/index.html', context={'title': 'Main Page'})
 
 
 def login_s(request):
