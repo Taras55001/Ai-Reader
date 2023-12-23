@@ -24,10 +24,10 @@
                         <a class="nav-link" href="profile">Profile</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="download">Download</a>
+                        <a class="nav-link" href="{% url 'pdf:upload_file' %}">Download</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="chat">Chat</a>
+                        <a class="nav-link" href="{% url 'chat:chat' %}">Chat</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
