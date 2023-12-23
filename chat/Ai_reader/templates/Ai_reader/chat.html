@@ -1,0 +1,23 @@
+{% extends "users/base.html" %}
+
+{% block title %} Chat {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>All Chats</h1>
+        <ul>
+            {% for chat in all_chats %}
+                <li>{{ chat.title }}</li> 
+            {% endfor %}
+        </ul>
+
+        <hr>
+
+        <h2>Current Chat: {{ current_chat.title }}</h2>
+        <ul>
+            {% for reply in chat_replies %}
+                <li>{{ reply.text }}</li> 
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
