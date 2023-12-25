@@ -24,10 +24,10 @@ function saveChanges() {
     })
     .then(response => {
         if (response.ok) {
-            alert('Зміни збережено!');
+            alert('Changes saved!');
             closeModal('editProfileModal');
         } else {
-            throw new Error('Помилка при збереженні змін!');
+            throw new Error('Error saving changes!');
         }
     })
     .catch(error => {
@@ -60,10 +60,10 @@ function deleteAccount() {
     })
     .then(response => {
         if (response.ok) {
-            alert('Обліковий запис успішно видалено!');
+            alert('Account deleted successfully!');
             // Якщо потрібно перенаправити після видалення, використовуйте window.location = '/новий_шлях';
         } else {
-            throw new Error('Помилка при видаленні облікового запису!');
+            throw new Error('Error deleting account!');
         }
     })
     .catch(error => {

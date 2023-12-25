@@ -28,25 +28,25 @@
 <div id="confirmDeleteModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('confirmDeleteModal')">&times;</span>
-        <p>Ви впевнені, що хочете видалити свій аккаунт?</p>
-        <button onclick="deleteConfirmation()">Так, видалити</button>
-        <button class="close-btn btn btn-secondary" onclick="closeModal('confirmDeleteModal')">Закрити</button>
+        <p>Are you sure you want to delete your account?</p>
+        <button onclick="deleteConfirmation()">Yes, delete</button>
+        <button class="close-btn btn btn-secondary" onclick="closeModal('confirmDeleteModal')">Close</button>
     </div>
 </div>
 
 <div id="deleteModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('deleteModal')">&times;</span>
-        <p>Ви впевнені, що хочете видалити свій аккаунт?</p>
-        <button onclick="deleteAccount()" class="btn btn-danger">Так, видалити</button>
-        <button class="close-btn btn btn-secondary" onclick="closeModal('deleteModal')">Закрити</button>
+        <p>Are you sure you want to delete your account?</p>
+        <button onclick="deleteAccount()" class="btn btn-danger">Yes, delete</button>
+        <button class="close-btn btn btn-secondary" onclick="closeModal('deleteModal')">Close</button>
     </div>
 </div>
 
 <div id="editProfileModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('editProfileModal')">&times;</span>
-        <p>Форма для зміни профілю...</p>
+        <p>Profile change form...</p>
         <form id="profileForm">
             <div class="form-group">
                 <label for="username">Username:</label>
@@ -57,15 +57,15 @@
                 <input type="email" class="form-control" id="email" name="email">
             </div>
             <div>
-                <button type="button" onclick="saveChanges()" class="btn btn-primary">Зберегти зміни</button>
-                <button class="close-btn btn btn-secondary" onclick="closeModal('editProfileModal')">Закрити</button>
+                <button type="button" onclick="saveChanges()" class="btn btn-primary">Save changes</button>
+                <button class="close-btn btn btn-secondary" onclick="closeModal('editProfileModal')">Close</button>
             </div>
         </form>
     </div>
 </div>
 
-<button id="deleteAccountBtn" onclick="confirmDelete()" class="btn btn-danger">Видалити аккаунт</button>
-<button id="editProfileBtn" onclick="editProfile()" class="btn btn-primary">Змінити профіль</button>
+<button id="deleteAccountBtn" onclick="confirmDelete()" class="btn btn-danger">Delete account</button>
+<button id="editProfileBtn" onclick="editProfile()" class="btn btn-primary">Change profile</button>
 
 
 {% endblock %}

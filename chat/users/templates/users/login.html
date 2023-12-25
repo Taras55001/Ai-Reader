@@ -3,31 +3,33 @@
 {% block title %} Login {% endblock %}
 
 {% block body  %}
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title text-center">Login</h2>
-                </div>
-                <div class="card-body">
-                    <form method="post" action="login">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username:</label>
-                            {{ form.username }}
-                            <span>{{ form.errors.username }}</span>
-                        </div>
-                        <div class="mb-3">
-                            <label for="password1" class="form-label">Password:</label>
-                            {{ form.password }}
-                            <span>{{ form.errors.password }}</span>
-                        </div>
-                        <div class="d-grid gap-2">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
-                        </div>
-                    </form>
+<div class="gradient-container" >
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title text-center">Login</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="login">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username:</label>
+                                {{ form.username }}
+                                <span>{{ form.errors.username }}</span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password1" class="form-label">Password:</label>
+                                {{ form.password }}
+                                <span>{{ form.errors.password }}</span>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

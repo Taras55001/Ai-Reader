@@ -1,14 +1,12 @@
-from django.http import HttpResponse
-from django.template import loader
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm
-from django.contrib.auth.models import User
 from .models import Blacklist
 from django.http import JsonResponse
 import json
+from django.urls import reverse
 
 def index(request):
     return render(request, 'users/index.html', context={'title': 'Main Page'})
@@ -51,7 +49,7 @@ def sign(request):
 @login_required
 def logoutuser(request):
     logout(request)
-    return redirect(to='users:profile')
+    return redirect(to='chat:main')
 
 def delete(request):
     if request.method == 'POST':
@@ -82,7 +80,12 @@ def changed(request):
     return JsonResponse({'message': 'Помилка при обробці запиту!'}, status=400)
 
 
+def eror_aut(request):
+    return render(request, 'users/eror_aut.html')
+
 
 def profile(request):
-
-    return render(request, 'users/profile.html')
+    if request.user.is_authenticated:
+        return render(request, 'users/profile.html')
+    else:
+        return redirect(reverse('users:eror_aut')) 
