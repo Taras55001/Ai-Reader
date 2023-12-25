@@ -32,7 +32,8 @@ def chat(request):
                 'chat_replies': chat_replies,
             })
     else:
-        return redirect(reverse('users:login')) 
+        return redirect(reverse('users:eror_aut')) 
+
 
 def answer(request):
     

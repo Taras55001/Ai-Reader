@@ -7,7 +7,29 @@
     
     <title>{% block title %} {% endblock %}</title>
 </head>
+{% block styles %}
+<style>
+    .gradient-container {
+    width: 100%;
+    height: 666px;
+    background: linear-gradient(to bottom right, #28CDA5, #3C27BE, #AD00FF);
+    color: white;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    /* Анімація для фону */
+    animation: changeBackground 5s infinite alternate;
+}
+@keyframes changeBackground {
+    0% {
+        background-position: 0% 0%; 
+    }
+    100% {
+        background-position: 100% 100%; 
+    }
+}
 
+</style>
+{% endblock %}
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Ai-Reader</a>
@@ -18,17 +40,27 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'users:profile' %}">Profile</a>
+                        <a class="nav-link" href="{% url 'chat:chat' %}">Chat</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'pdf:upload_file' %}">Download</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'chat:chat' %}">Chat</a>
+                        <a class="nav-link" href="#" id="logoutBtn">Logout</a>
                     </li>
+                    
+                    <script>
+                        document.getElementById('logoutBtn').addEventListener('click', function(event) {
+                            event.preventDefault(); // Відміна переходу за посиланням за замовчуванням
+                            
+                            var confirmLogout = confirm('Ви впевнені, що бажаєте вийти з аккаунта?');
+                    
+                            if (confirmLogout) {
+                                // Якщо користувач підтвердив вихід, робіть редірект на сторінку виходу
+                                window.location.href = "{% url 'users:logout' %}";
+                            }
+                        });
+                    </script>
                 {% else %}
                     <li class="nav-item">
                         <a class="nav-link" href="/users/sign">Sign Up</a>

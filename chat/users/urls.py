@@ -12,5 +12,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('delete', views.delete, name='delete'),
     path('change', views.changed, name='change'),
+    path('eror_aut', views.eror_aut, name='eror_aut'),
 
 ]

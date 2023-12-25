@@ -36,7 +36,8 @@ def upload_file(request):
         files = UploadedFile.objects.filter(user_id=request.user.id)
         return render(request, 'pdf/upload_file.html', {'form': form, 'files': files})
     else:
-        return redirect(reverse('users:login')) 
+        return redirect(reverse('users:eror_aut')) 
+
 
 
 def download_file(request, file_id):
