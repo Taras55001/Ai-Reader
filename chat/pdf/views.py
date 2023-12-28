@@ -1,13 +1,12 @@
 from django.shortcuts import render, redirect
 import os
-import PyPDF2
 import mimetypes
 from django.http import HttpResponse
 from .models import UploadedFile
 from .forms import UploadFileForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from PyPDF2 import PdfReader 
+from pypdf import PdfReader 
 
 def is_pdf(file):
     file_name = file.name
