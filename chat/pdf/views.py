@@ -7,12 +7,12 @@ from .models import UploadedFile
 from .forms import UploadFileForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from PyPDF2 import PdfReader 
 
 def is_pdf(file):
     file_name = file.name
 
     file_extension = file_name.split('.')[-1].lower()
-    print(file_extension)
     if file_extension == 'pdf':
         return True
     else:
@@ -28,6 +28,13 @@ def upload_file(request):
                 if is_pdf(file.file):
                         file.user_id = request.user
                         file.save()
+                        uploaded_file = request.FILES['file']
+                        reader = PdfReader(uploaded_file) 
+                        page = reader.pages[0] 
+                        title=request.FILES['file'].name.split('.')[0]
+                        print(title)
+                        text = page.extract_text() 
+                        print(text) 
                         return redirect('pdf:upload_file') 
                 else:
                     return render(request, 'pdf/upload_file.html', {'form': form, 'files': UploadedFile.objects.all(), 'error_message': 'Файл має бути у форматі PDF'})
@@ -37,6 +44,8 @@ def upload_file(request):
         return render(request, 'pdf/upload_file.html', {'form': form, 'files': files})
     else:
         return redirect(reverse('users:eror_aut')) 
+
+
 
 
 
