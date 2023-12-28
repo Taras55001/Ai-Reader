@@ -16,6 +16,15 @@ class FileFieldFormView(FormView):
     template_name = "pdf/upload_file.html"  
     success_url = "pdf:upload_file"  
 
+    def get(self,request, *args, **kwargs):
+        if  not request.user.is_authenticated:
+            return redirect(reverse('users:eror_aut')) 
+        form = FileFieldForm()
+        return render(
+            self.request, 
+            'pdf/upload_file.html', 
+            {'form': form, 'files': UploadedFile.objects.filter(user_id=request.user.id)}
+        )
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
@@ -26,9 +35,23 @@ class FileFieldFormView(FormView):
 
     def form_valid(self, form):
         files = form.cleaned_data["file_field"]
-        for f in files:
-            ...  # Do something with each file.
-        return super().form_valid()
+        for uploaded_file in files:
+            if is_pdf(uploaded_file):
+                title = uploaded_file.name.split('.')[0]
+                reader = PdfReader(uploaded_file) 
+                page = reader.pages[0] 
+                print(title)
+                text = page.extract_text() 
+                print(text) 
+                page = reader.pages[0]
+                text = page.extract_text()
+
+                uploaded_file_obj = UploadedFile(
+                    file=uploaded_file,
+                    user_id=self.request.user
+                )
+                uploaded_file_obj.save()
+        return redirect('pdf:upload_file') 
 
 
 def is_pdf(file):
