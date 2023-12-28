@@ -64,36 +64,6 @@ def is_pdf(file):
         return False
 
 
-def upload_file(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = FileFieldForm(request.POST, request.FILES)
-            print(form)
-            if form.is_valid(): 
-                file = form.save(commit=False)
-                if is_pdf(file.file):
-                        file.user_id = request.user
-                        file.save()
-                        uploaded_file = request.FILES['file']
-                        reader = PdfReader(uploaded_file) 
-                        page = reader.pages[0] 
-                        title=request.FILES['file'].name.split('.')[0]
-                        print(title)
-                        text = page.extract_text() 
-                        print(text) 
-                        return redirect('pdf:upload_file') 
-                else:
-                    return render(request, 'pdf/upload_file.html', {'form': form, 'files': UploadedFile.objects.all(), 'error_message': 'Файл має бути у форматі PDF'})
-        else:
-            form = FileFieldForm()
-        files = UploadedFile.objects.filter(user_id=request.user.id)
-        return render(request, 'pdf/upload_file.html', {'form': form, 'files': files})
-    else:
-        return redirect(reverse('users:eror_aut')) 
-
-
-
-
 
 def download_file(request, file_id):
     uploaded_file = UploadedFile.objects.get(pk=file_id)
