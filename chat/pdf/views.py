@@ -3,10 +3,33 @@ import os
 import mimetypes
 from django.http import HttpResponse
 from .models import UploadedFile
-from .forms import UploadFileForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from pypdf import PdfReader 
+
+from django.views.generic.edit import FormView
+from .forms import FileFieldForm
+
+
+class FileFieldFormView(FormView):
+    form_class = FileFieldForm
+    template_name = "pdf/upload_file.html"  
+    success_url = "pdf:upload_file"  
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        files = form.cleaned_data["file_field"]
+        for f in files:
+            ...  # Do something with each file.
+        return super().form_valid()
+
 
 def is_pdf(file):
     file_name = file.name
@@ -21,8 +44,9 @@ def is_pdf(file):
 def upload_file(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form = UploadFileForm(request.POST, request.FILES)
-            if form.is_valid():
+            form = FileFieldForm(request.POST, request.FILES)
+            print(form)
+            if form.is_valid(): 
                 file = form.save(commit=False)
                 if is_pdf(file.file):
                         file.user_id = request.user
@@ -38,7 +62,7 @@ def upload_file(request):
                 else:
                     return render(request, 'pdf/upload_file.html', {'form': form, 'files': UploadedFile.objects.all(), 'error_message': 'Файл має бути у форматі PDF'})
         else:
-            form = UploadFileForm()
+            form = FileFieldForm()
         files = UploadedFile.objects.filter(user_id=request.user.id)
         return render(request, 'pdf/upload_file.html', {'form': form, 'files': files})
     else:
