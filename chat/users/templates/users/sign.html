@@ -1,0 +1,51 @@
+{% extends "users/base.html" %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block body %}
+<div class="gradient-container" >
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title text-center">Sign Up</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="sign">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username:</label>
+                                {{ form.username }}
+                                <span>{{ form.errors.username }}</span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+
+                                {{ form.email }}
+                                <span>{{ form.errors.email }}</span>
+                                {{error_message}}
+                            </div>
+                            <div class="mb-3">
+                                <label for="password1" class="form-label">Password:</label>
+                                {{ form.password1 }}
+                                <span>{{ form.errors.password1 }}</span>
+                            </div>
+                            <div class="mb-3">
+                                <label for="password2" class="form-label">Password confirmation:</label>
+                                {{ form.password2 }}
+                                <span>{{ form.errors.password2 }}</span>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

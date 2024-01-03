@@ -1,0 +1,35 @@
+{% extends "users/base.html" %}
+
+{% block title %} Download {% endblock %}
+
+{% block body %}
+<div class="gradient-container" >
+
+    <div class="container mt-4">
+        <h2>Upload Files</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary mt-2">Upload</button>
+        </form>
+
+        <h3 class="mt-4">Uploaded Files:</h3>
+        <ul class="list-group">
+            {% for file in files %}
+                <li class="list-group-item">
+                    <a href="{% url 'pdf:download_file' file.id %}">{{ file.file.name }}</a>
+                    <a href="{% url 'pdf:delete_file' file.id %}" class="btn btn-danger btn-sm ml-2">Delete</a>
+                </li>
+            {% empty %}
+                <li class="list-group-item">No files uploaded yet.</li>
+            {% endfor %}
+        </ul>
+
+        {% if error_message %}
+            <p class="mt-4 text-danger">{{ error_message }}</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

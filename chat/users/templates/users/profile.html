@@ -1,0 +1,71 @@
+{% extends "users/base.html" %}
+{% block title %} Profile {% endblock %}
+{% load static %}
+
+{% block body %}
+<script src="{% static 'app.js' %}"></script>
+<style>
+    .modal-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border: 1px solid #ccc;
+        max-width: 400px; /* Змінення максимальної ширини сповіщення */
+    }
+
+    .close-btn {
+        padding: 8px 12px;
+        margin-left: 8px; /* Розміщення кнопок - відстань між ними */
+    }
+</style>
+
+<h1>{{ user.username }}</h1>
+<h3>{{ user.email }}</h3>
+
+<div id="confirmDeleteModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('confirmDeleteModal')">&times;</span>
+        <p>Are you sure you want to delete your account?</p>
+        <button onclick="deleteConfirmation()">Yes, delete</button>
+        <button class="close-btn btn btn-secondary" onclick="closeModal('confirmDeleteModal')">Close</button>
+    </div>
+</div>
+
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('deleteModal')">&times;</span>
+        <p>Are you sure you want to delete your account?</p>
+        <button onclick="deleteAccount()" class="btn btn-danger">Yes, delete</button>
+        <button class="close-btn btn btn-secondary" onclick="closeModal('deleteModal')">Close</button>
+    </div>
+</div>
+
+<div id="editProfileModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('editProfileModal')">&times;</span>
+        <p>Profile change form...</p>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" class="form-control" id="username" name="username">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email">
+            </div>
+            <div>
+                <button type="button" onclick="saveChanges()" class="btn btn-primary">Save changes</button>
+                <button class="close-btn btn btn-secondary" onclick="closeModal('editProfileModal')">Close</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<button id="deleteAccountBtn" onclick="confirmDelete()" class="btn btn-danger">Delete account</button>
+<button id="editProfileBtn" onclick="editProfile()" class="btn btn-primary">Change profile</button>
+
+
+{% endblock %}
