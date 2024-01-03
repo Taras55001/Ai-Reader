@@ -1,10 +1,7 @@
 from django.shortcuts import render, redirect
-import os
-import mimetypes
 import pickle
 from django.http import HttpResponse
 from .models import UploadedFile
-from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from pypdf import PdfReader
 from langchain.vectorstores import FAISS

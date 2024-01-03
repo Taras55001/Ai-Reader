@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Chat, Message
-from dolly_answer import answer as ans
+from .dolly_answer import answer as ans
+
 
 
 def main(request):
@@ -46,5 +47,7 @@ def chat(request):
 
 
 def answer(request):
+
     ans('chat\media\uploads\PlayerGuide.pdf', 'How many players in the game?')
+
     return render(request, "Ai_reader/chat.html")

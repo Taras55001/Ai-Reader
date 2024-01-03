@@ -1,22 +1,27 @@
-import torch
-import transformers
-from langchain.vectorstores import FAISS
+from langchain.llms import HuggingFaceHub
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+
+
 import pickle
 from pdf.models import UploadedFile
 
 
 def gen_text(context: str, question: str) -> str:
-    generate_text = transformers.pipeline(
-        model="databricks/dolly-v2-3b",
-        torch_dtype=torch.bfloat16,
-        trust_remote_code=True,
-        device_map="auto",
-        # offload_folder="",
-        return_full_text=True,
-    )
 
-    res = generate_text(f"{context}. {question}")
-    return res[0]["generated_text"]
+    template = """Question: {question}
+
+    Answer: Let's think step by step."""
+
+    prompt = PromptTemplate(template=template, input_variables=["question"])
+    repo_id = "databricks/dolly-v2-3b"
+    llm = HuggingFaceHub(
+        repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 64}
+    )
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+    res = llm_chain.run(f"{context}. {question}")
+    return res
+
 
 
 def answer(filename: UploadedFile, question: str) -> str:
