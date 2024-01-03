@@ -47,7 +47,6 @@ def chat(request):
 
 
 def answer(request):
-
-    ans('chat\media\uploads\PlayerGuide.pdf', 'How many players in the game?')
+    ans('chat/media/uploads/PlayerGuide.pdf', 'How many players in the game?')
 
     return render(request, "Ai_reader/chat.html")
