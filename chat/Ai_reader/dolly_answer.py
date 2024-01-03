@@ -1,11 +1,14 @@
 from langchain.llms import HuggingFaceHub
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
+
+
 import pickle
 from pdf.models import UploadedFile
 
 
 def gen_text(context: str, question: str) -> str:
+
     template = """Question: {question}
 
     Answer: Let's think step by step."""
@@ -18,6 +21,7 @@ def gen_text(context: str, question: str) -> str:
     llm_chain = LLMChain(prompt=prompt, llm=llm)
     res = llm_chain.run(f"{context}. {question}")
     return res
+
 
 
 def answer(filename: UploadedFile, question: str) -> str:
