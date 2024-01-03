@@ -6,15 +6,18 @@ authors = ["taras55001 <taras5500@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
-Django = "^5.0"
-python-dotenv = "^1.0.0"
-psycopg2 = "^2.9.9"
-django-yugabytedb = "^4.0.0"
-pypdf = "^3.17.4"
-Pillow = "10.1.0"
-faiss-cpu = "^1.7.4"
-transformers = "4.36.2"
+python = "~ 3.10"
+django = "~ 5.0"
+python-dotenv = "~ 1.0.0"
+psycopg2 = "~ 2.9.9"
+django-yugabytedb = "~ 4.0.0"
+pypdf = "~ 3.17.4"
+pillow = "~ 10.1.0"
+faiss-cpu = "~ 1.7.4"
+transformers = "~ 4.36.2"
+langchain = "^0.0.354"
+sentence-transformers = "^2.2.2"
+
 
 [build-system]
 requires = ["poetry-core"]
