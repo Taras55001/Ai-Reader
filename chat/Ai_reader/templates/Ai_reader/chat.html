@@ -2,7 +2,11 @@
 
 {% block title %} Chat {% endblock %}
 
+{% load static %}
+
 {% block body %}
+<script src="{% static 'app.js' %}"></script>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3">
@@ -20,15 +24,44 @@
                 <li>In develop</li>
                 <!-- Додайте повідомлення тут -->
             </ul>
-            <form style="position: absolute; bottom: 20px; width: calc(100% - 40px);">
-                <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Напишіть ваше повідомлення" style="width: 100%;"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Надіслати</button>
+            <form method="post" action="{% url 'chat:answer' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="fileSelect">Виберіть файл</label>
+                <select id="fileSelect" name="file">
+                    {% for file in user_files %}
+                        <option value="{{ file.id }}">{{ file.file.name }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="messageInput">Напишіть повідомлення</label>
+                <textarea id="messageInput" name="message" rows="4" cols="50"></textarea>
+                <br>
+                <button type="submit">Надіслати</button>
             </form>
         </div>
     </div>
 </div>
+<script>
+    function uploadFile() {
+        const fileInput = document.getElementById('fileInput');
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
 
+        // Отримання JSON з даними і відправлення на сервер
+        fetch('/upload_file/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Тут можна виконати додаткові дії з отриманими даними, якщо потрібно
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>
 
 {% endblock %}

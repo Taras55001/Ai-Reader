@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Chat, Message
 from .dolly_answer import answer as ans
-
-
+from pdf.models import UploadedFile
+from .forms import ChooseFileForm
+from django.http import HttpResponse
 
 def main(request):
     return render(request, "Ai_reader/main.html")
@@ -12,6 +13,7 @@ def main(request):
 def chat(request):
     user = request.user
     if request.user.is_authenticated:
+        user_files = UploadedFile.objects.filter(user_id=request.user)
         user_chats = Chat.objects.filter(users=user)
 
         if not user_chats.exists():
@@ -27,6 +29,7 @@ def chat(request):
                     "user_chats": user_chats,
                     "current_chat": new_chat,
                     "chat_replies": chat_replies,
+                    'form':ChooseFileForm()
                 },
             )
         else:
@@ -40,6 +43,7 @@ def chat(request):
                     "user_chats": user_chats,
                     "current_chat": current_chat,
                     "chat_replies": chat_replies,
+                    'user_files': user_files
                 },
             )
     else:
@@ -47,6 +51,16 @@ def chat(request):
 
 
 def answer(request):
-    ans('chat/media/uploads/PlayerGuide.pdf', 'How many players in the game?')
+    if request.method == 'POST':
 
-    return render(request, "Ai_reader/chat.html")
+        file = request.POST.get('file')
+        user_files = UploadedFile.objects.filter(id=file)
+
+        message = request.POST.get('message')
+        print(type(user_files[0]))
+        file_path = 'chat/media/uploads/PlayerGuide.pdf' 
+        answer = ans(user_files[0], message)  
+        print(answer)
+        return HttpResponse("Success: Data sent to 'ans' function.")
+    
+    return HttpResponse("Failed: No data sent.")
