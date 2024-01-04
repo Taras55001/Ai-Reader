@@ -12,7 +12,7 @@ from django.core.files import File as DjangoFile
 
 from django.views.generic.edit import FormView
 from .forms import FileFieldForm
-
+import docx2python
 
 class FileFieldFormView(FormView):
     form_class = FileFieldForm
@@ -43,12 +43,15 @@ class FileFieldFormView(FormView):
     def form_valid(self, form):
         files = form.cleaned_data["file_field"]
         for uploaded_file in files:
-            if is_pdf(uploaded_file):
+            if is_valid_type(uploaded_file):
                 title = uploaded_file.name.split(".")[0]
-                reader = PdfReader(uploaded_file)
+                #reader = PdfReader(uploaded_file)
                 text = ""
+                """
                 for page in reader.pages:
                     text += page.extract_text() + "\n"
+                """
+                text = get_text_from_file(uploaded_file)
                 text_splitter = RecursiveCharacterTextSplitter(
                     chunk_size=1000, chunk_overlap=200
                 )
@@ -97,3 +100,63 @@ def delete_file(request, file_id):
     uploaded_file.file.delete()
     uploaded_file.delete()
     return redirect("pdf:upload_file")
+
+def is_valid_type(file):
+    file_name = file.name
+
+    file_extension = file_name.split(".")[-1].lower()
+    if file_extension == "pdf" or file_extension == "docx" or file_extension == "txt":
+        return True
+    else:
+        return False
+
+
+
+
+def get_text_from_pdf(file_name, show_text:bool = False):
+    full_text = []
+    try:
+        reader = PdfReader(file_name)
+        for page in reader.pages:
+            text = page.extract_text()
+            if show_text:
+                print(text)
+            full_text.append(text)
+    except:
+        full_text = []
+
+    return "\n".join(full_text)
+
+def get_text_from_docx(file_name):
+    res = ""
+    try:
+        docx = docx2python.docx2python(file_name)
+        res = docx.text
+    except:
+        res = ""
+    return res
+
+def get_text_from_txt(file_name):
+    try:
+        file_text = ""
+
+        for f_line in file_name:
+            file_text += f_line.decode()
+    except:
+        file_text = ""
+
+    return file_text
+
+def get_text_from_file(file_name):
+    ext = file_name.name.split('.')[-1].lower()
+
+    if ext == "docx":
+        file_text = get_text_from_docx(file_name)
+    elif ext == "pdf":
+        file_text = get_text_from_pdf(file_name)
+    elif ext == "txt":
+        file_text = get_text_from_txt(file_name)
+    else:
+        file_text = ""
+    
+    return file_text
