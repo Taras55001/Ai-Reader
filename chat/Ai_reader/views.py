@@ -52,15 +52,27 @@ def chat(request):
 
 def answer(request):
     if request.method == 'POST':
-
+        user = request.user
         file = request.POST.get('file')
         user_files = UploadedFile.objects.filter(id=file)
 
         message = request.POST.get('message')
-        print(type(user_files[0]))
         file_path = 'chat/media/uploads/PlayerGuide.pdf' 
         answer = ans(user_files[0], message)  
-        print(answer)
+
+        chat_name = user_files[0].file.name  
+        print(Chat.objects.filter(name=chat_name))
+        if Chat.objects.filter(name=chat_name) == None:
+            chat = Chat.objects.create(name=chat_name)
+
+        user_message = Message.objects.create(chat=chat, sender=user, content=message)
+
+        # Створення повідомлення від бота (ваша логіка генерації відповіді)
+        bot_message_content = "Це відповідь бота на ваше повідомлення."
+        bot_message = Message.objects.create(chat=chat, sender=user, content=bot_message_content)
+        
+
+
         return HttpResponse("Success: Data sent to 'ans' function.")
     
     return HttpResponse("Failed: No data sent.")
