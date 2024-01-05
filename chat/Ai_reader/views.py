@@ -6,6 +6,7 @@ from pdf.models import UploadedFile
 from .forms import ChooseFileForm
 from django.http import HttpResponse
 
+
 def main(request):
     return render(request, "Ai_reader/main.html")
 
@@ -29,7 +30,7 @@ def chat(request):
                     "user_chats": user_chats,
                     "current_chat": new_chat,
                     "chat_replies": chat_replies,
-                    'form':ChooseFileForm()
+                    "form": ChooseFileForm(),
                 },
             )
         else:
@@ -43,7 +44,7 @@ def chat(request):
                     "user_chats": user_chats,
                     "current_chat": current_chat,
                     "chat_replies": chat_replies,
-                    'user_files': user_files
+                    "user_files": user_files,
                 },
             )
     else:
@@ -51,16 +52,13 @@ def chat(request):
 
 
 def answer(request):
-    if request.method == 'POST':
-
-        file = request.POST.get('file')
+    if request.method == "POST":
+        file = request.POST.get("file")
         user_files = UploadedFile.objects.filter(id=file)
 
-        message = request.POST.get('message')
-        print(type(user_files[0]))
-        file_path = 'chat/media/uploads/PlayerGuide.pdf' 
-        answer = ans(user_files[0], message)  
+        message = request.POST.get("message")
+        answer = ans(user_files[0], message)
         print(answer)
         return HttpResponse("Success: Data sent to 'ans' function.")
-    
+
     return HttpResponse("Failed: No data sent.")
