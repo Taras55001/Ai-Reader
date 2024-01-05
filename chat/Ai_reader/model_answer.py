@@ -11,20 +11,11 @@ logging.set_verbosity_error
 
 
 def gen_text(context: str, question: str) -> str:
-    # template = """
-    # Question: {question}
-    # Amswer: .......
-
-    # """
-
-    # prompt = PromptTemplate(template="", input_variables=["question"])
-    repo_id = "databricks/dolly-v2-12b"
+    repo_id = "tiiuae/falcon-7b-instruct"
     llm = HuggingFaceHub(
-        repo_id=repo_id,
-        model_kwargs={"temperature": 0, "max_length": 455},
+        repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 455}
     )
-    # llm_chain = LLMChain(prompt=prompt, llm=llm)
-    # res = llm_chain.run(question=question)
+
     chain = load_qa_chain(llm, chain_type="stuff")
     res = chain.run(input_documents=context, question=question)
     return res

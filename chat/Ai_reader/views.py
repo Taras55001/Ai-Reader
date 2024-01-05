@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Chat, Message
-from .dolly_answer import answer as ans
+from .model_answer import answer as ans
 from pdf.models import UploadedFile
 from .forms import ChooseFileForm
 from django.http import HttpResponse
