@@ -16,10 +16,11 @@ def gen_text(context: str, question: str) -> str:
     prompt = PromptTemplate(template=template, input_variables=["question"])
     repo_id = "databricks/dolly-v2-3b"
     llm = HuggingFaceHub(
-        repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 64}
+        repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 500}
     )
     llm_chain = LLMChain(prompt=prompt, llm=llm)
     res = llm_chain.run(f"{context}. {question}")
+    print(res)
     return res
 
 

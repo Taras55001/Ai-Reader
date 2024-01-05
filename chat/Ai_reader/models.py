@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 
 class Chat(models.Model):
     name = models.CharField(max_length=100)  
-    users = models.ManyToManyField(User, related_name='chats')  
+    users = models.ForeignKey(User, related_name='sent_chats', on_delete=models.CASCADE) 
+    active = models.BooleanField(default=False)
 
 class Message(models.Model):
     chat = models.ForeignKey(Chat, related_name='messages', on_delete=models.CASCADE) 
