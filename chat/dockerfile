@@ -6,15 +6,13 @@ FROM python:3.10
 WORKDIR /app
 
 # Копіюємо файли з вашого локального контексту в контейнер
-COPY . ./
+COPY . .
 
 # Встановлення залежностей з файлу requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt \
-    && python manage.py migrate \
-    && python manage.py runserver 80
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Позначимо порт де працює програма всередині контейнера
-EXPOSE 3000
+EXPOSE 8000
 
 # Запустимо нашу програму всередині контейнера
-CMD ["gunicorn", "-b", "0.0.0.0:80", "chat.wsgi"]
+CMD ["uvicorn", "chat.asgi:application", "--host", "0.0.0.0", "--port", "8000"]
