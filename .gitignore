@@ -1,7 +1,5 @@
 config.ini
 .env
-poetry.lock
-pyproject.toml
 .idea
 .history
 _pycache_
