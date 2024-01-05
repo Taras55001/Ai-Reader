@@ -66,20 +66,19 @@ def answer(request):
         user_files = UploadedFile.objects.filter(id=file)
 
         message = request.POST.get('message')
-        file_extension = file.name.split(".")[-1].lower()
         answer = ans(user_files[0], message)  
-        print(answer)
-        chat_name = user_files[0].file.name  
+        chat_name = user_files[0].file.name
+        name=chat_name.split(".")[-1].lower()
         try:
-            chat = Chat.objects.get(name=chat_name,users=user)
+            chat = Chat.objects.get(name=name,users=user)
         except Chat.DoesNotExist:
-            chat = Chat.objects.create(name=chat_name,users=user)
-        chat=Chat.objects.get(name=chat_name,users=user)
+            chat = Chat.objects.create(name=name,users=user)
+        chat=Chat.objects.get(name=name,users=user)
         user_message = Message.objects.create(chat=chat, sender=user, content=message)
 
 
         bot_message = Message.objects.create(chat=chat, sender=user, content=answer)
         
-        return redirect(to='chat:ex_chat', chat_name=chat_name)
+        return redirect(to='chat:ex_chat', chat_name=name)
     
     return HttpResponse("Failed: No data sent.")

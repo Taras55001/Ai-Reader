@@ -32,19 +32,21 @@
                     <li style="background-color: rgba(255, 255, 255, 0.1); padding: 10px; margin-bottom: 5px;">{{ mes.content }}</li>
                 {% endfor %}
             </ul>
-            <form method="post" action="{% url 'chat:answer' %}" enctype="multipart/form-data" style="margin-top: 20px;">
+            <form method="post" action="{% url 'chat:answer' %}" enctype="multipart/form-data" class="mt-4">
                 {% csrf_token %}
-                <label for="fileSelect" style="color: white;">Виберіть файл</label>
-                <select id="fileSelect" name="file">
-                    {% for file in user_files %}
-                        <option value="{{ file.id }}">{{ file.file.name }}</option>
-                    {% endfor %}
-                </select>
-                <br>
-                <label for="messageInput" style="color: white;">Напишіть повідомлення</label>
-                <textarea id="messageInput" name="message" rows="4" cols="50"></textarea>
-                <br>
-                <button type="submit" style="background-color: blue; color: white; padding: 10px; border: none; cursor: pointer;">Надіслати</button>
+                <div class="form-group">
+                    <label for="fileSelect" style="color: white;">Select a file</label>
+                    <select id="fileSelect" name="file" class="form-control">
+                        {% for file in user_files %}
+                            <option value="{{ file.id }}">{{ file.file.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="messageInput" style="color: white;">Write a message</label>
+                    <textarea id="messageInput" name="message" rows="4" cols="50" class="form-control"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Надіслати</button>
             </form>
         </div>
     </div>
