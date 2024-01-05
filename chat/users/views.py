@@ -7,6 +7,11 @@ from .models import Blacklist
 from django.http import JsonResponse
 import json
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordResetView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
+
 
 def index(request):
     return render(request, 'users/index.html', context={'title': 'Main Page'})
@@ -38,6 +43,9 @@ def sign(request):
             if Blacklist.objects.filter(email=email).exists():
                 messages.error(request, 'Ця електронна адреса заблокована')
                 return render(request, 'users/sign.html', context={"form": form, "error_message": "Ця електронна адреса заблокована."})
+            elif User.objects.filter(email=email).exists():
+                messages.error(request, 'Ця електронна адреса вже зареєстрована')
+                return render(request, 'users/sign.html', context={"form": form, "error_message": "Ця електронна адреса вже зареєстрована."})
             form.save()
             user = authenticate(username=request.POST['username'], password=request.POST['password1'])
             login(request, user)
@@ -89,3 +97,13 @@ def profile(request):
         return render(request, 'users/profile.html')
     else:
         return redirect(reverse('users:eror_aut')) 
+    
+
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+    template_name = 'users/password_reset.html'
+    email_template_name = 'users/password_reset_email.html'
+    html_email_template_name = 'users/password_reset_email.html'
+    success_url = reverse_lazy('users:password_reset_done')
+    success_message = "An email with instructions to reset your password has been sent to %(email)s."
+    subject_template_name = 'users/password_reset_subject.txt'

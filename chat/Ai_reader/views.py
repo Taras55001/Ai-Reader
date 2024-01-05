@@ -68,7 +68,7 @@ def answer(request):
         message = request.POST.get('message')
         answer = ans(user_files[0], message)  
         chat_name = user_files[0].file.name
-        name=chat_name.split(".")[-1].lower()
+        name=chat_name.split(".")[0].lower()
         try:
             chat = Chat.objects.get(name=name,users=user)
         except Chat.DoesNotExist:
