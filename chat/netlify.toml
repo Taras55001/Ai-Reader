@@ -1,0 +1,7 @@
+[build]
+  command = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+
+[[redirects]]
+  from = "/*"
+  to = "/base.html"
+  status = 200
