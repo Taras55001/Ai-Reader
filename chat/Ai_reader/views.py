@@ -15,39 +15,48 @@ def chat(request):
     if request.user.is_authenticated:
         user_files = UploadedFile.objects.filter(user_id=request.user)
         user_chats = Chat.objects.filter(users=user)
-
-        if not user_chats.exists():
-            new_chat = Chat.objects.create()
-            new_chat.users.add(user)
-            new_chat.save()
-
-            chat_replies = []
-            return render(
-                request,
-                "Ai_reader/chat.html",
-                {
-                    "user_chats": user_chats,
-                    "current_chat": new_chat,
-                    "chat_replies": chat_replies,
-                    'form':ChooseFileForm()
-                },
-            )
-        else:
-            current_chat = user_chats.first()
-            chat_replies = Message.objects.filter(chat=current_chat)
-
-            return render(
-                request,
-                "Ai_reader/chat.html",
-                {
-                    "user_chats": user_chats,
-                    "current_chat": current_chat,
-                    "chat_replies": chat_replies,
-                    'user_files': user_files
-                },
-            )
+        x=[]
+        for chat in user_chats:
+            print(chat.name)
+            x.append(chat.name)
+        return render(
+            request,
+            "Ai_reader/chat.html",
+            {
+                "user_chats": x,
+                'user_files': user_files,
+                'form':ChooseFileForm(user=user)
+            },
+        )
     else:
         return redirect(reverse("users:eror_aut"))
+
+
+def ex_chat(request, chat_name):
+    user = request.user
+    if request.user.is_authenticated:
+        user_files = UploadedFile.objects.filter(user_id=request.user)
+        user_chats = Chat.objects.filter(users=user)
+        x=[]
+        for chat in user_chats:
+            x.append(chat.name)
+        current_chat = user_chats.get(name=chat_name,users_id=user.id)
+        chat_replies = Message.objects.filter(chat=current_chat)
+
+        return render(
+            request,
+            "Ai_reader/chat.html",
+            {
+                "user_chats": x,
+                "current_chat": current_chat,
+                "chat_replies": chat_replies,
+                'user_files': user_files,
+                'form':ChooseFileForm(user=user)
+            },
+        )
+    else:
+        return redirect(reverse("users:eror_aut"))
+
 
 
 def answer(request):
@@ -57,22 +66,20 @@ def answer(request):
         user_files = UploadedFile.objects.filter(id=file)
 
         message = request.POST.get('message')
-        file_path = 'chat/media/uploads/PlayerGuide.pdf' 
+        file_extension = file.name.split(".")[-1].lower()
         answer = ans(user_files[0], message)  
-
+        print(answer)
         chat_name = user_files[0].file.name  
-        print(Chat.objects.filter(name=chat_name))
-        if Chat.objects.filter(name=chat_name) == None:
-            chat = Chat.objects.create(name=chat_name)
-
+        try:
+            chat = Chat.objects.get(name=chat_name,users=user)
+        except Chat.DoesNotExist:
+            chat = Chat.objects.create(name=chat_name,users=user)
+        chat=Chat.objects.get(name=chat_name,users=user)
         user_message = Message.objects.create(chat=chat, sender=user, content=message)
 
-        # Створення повідомлення від бота (ваша логіка генерації відповіді)
-        bot_message_content = "Це відповідь бота на ваше повідомлення."
-        bot_message = Message.objects.create(chat=chat, sender=user, content=bot_message_content)
+
+        bot_message = Message.objects.create(chat=chat, sender=user, content=answer)
         
-
-
-        return HttpResponse("Success: Data sent to 'ans' function.")
+        return redirect(to='chat:ex_chat', chat_name=chat_name)
     
     return HttpResponse("Failed: No data sent.")
