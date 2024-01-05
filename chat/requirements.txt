@@ -1,6 +1,6 @@
 ﻿Django
 python-dotenv
-psycopg2
+psycopg2-binary
 django-yugabytedb
 pypdf
 Pillow
