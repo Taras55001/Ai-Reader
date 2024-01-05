@@ -1,5 +1,5 @@
 [build]
-  command = "pip install -r requirements.txt && python manage.py collectstatic --noinput"
+  command = "pip install -r requirements_netlify.txt && python manage.py collectstatic --noinput"
 
 [[redirects]]
   from = "/*"
