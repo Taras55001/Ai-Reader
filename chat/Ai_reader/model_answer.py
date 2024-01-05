@@ -1,7 +1,5 @@
 from langchain.llms import HuggingFaceHub
-from langchain.chains import LLMChain
 from langchain.chains.question_answering import load_qa_chain
-from langchain.prompts import PromptTemplate
 
 from transformers.utils import logging
 import pickle

@@ -17,6 +17,7 @@ def chat(request):
         user_files = UploadedFile.objects.filter(user_id=request.user)
         user_chats = Chat.objects.filter(users=user)
 
+
         if not user_chats.exists():
             new_chat = Chat.objects.create()
             new_chat.users.add(user)
@@ -47,8 +48,36 @@ def chat(request):
                     "user_files": user_files,
                 },
             )
+
     else:
         return redirect(reverse("users:eror_aut"))
+
+
+def ex_chat(request, chat_name):
+    user = request.user
+    if request.user.is_authenticated:
+        user_files = UploadedFile.objects.filter(user_id=request.user)
+        user_chats = Chat.objects.filter(users=user)
+        x=[]
+        for chat in user_chats:
+            x.append(chat.name)
+        current_chat = user_chats.get(name=chat_name,users_id=user.id)
+        chat_replies = Message.objects.filter(chat=current_chat)
+
+        return render(
+            request,
+            "Ai_reader/chat.html",
+            {
+                "user_chats": x,
+                "current_chat": current_chat,
+                "chat_replies": chat_replies,
+                'user_files': user_files,
+                'form':ChooseFileForm(user=user)
+            },
+        )
+    else:
+        return redirect(reverse("users:eror_aut"))
+
 
 
 def answer(request):
