@@ -78,6 +78,7 @@ def answer(request):
             chat = Chat.objects.create(name=name,users=user)
         chat=Chat.objects.get(name=name,users=user)
         user_message = Message.objects.create(chat=chat, sender=user, content=message)
+        model_answer = Message.objects.create(chat=chat, sender=user, content=answer)
         return redirect("chat:ex_chat", chat_name=name)
 
 
