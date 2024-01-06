@@ -85,9 +85,16 @@ def answer(request):
         file = request.POST.get("file")
         user_files = UploadedFile.objects.filter(id=file)
 
-        message = request.POST.get("message")
-        answer = ans(user_files[0], message)
-        print(answer)
-        return HttpResponse("Success: Data sent to 'ans' function.")
+        message = request.POST.get('message')
+        answer = ans(user_files[0], message)  
+        chat_name = user_files[0].file.name
+        name=chat_name.split(".")[0].lower()
+        try:
+            chat = Chat.objects.get(name=name,users=user)
+        except Chat.DoesNotExist:
+            chat = Chat.objects.create(name=name,users=user)
+        chat=Chat.objects.get(name=name,users=user)
+        user_message = Message.objects.create(chat=chat, sender=user, content=message)
+
 
     return HttpResponse("Failed: No data sent.")
