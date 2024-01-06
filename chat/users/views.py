@@ -28,13 +28,13 @@ def login_s(request):
             return redirect(to='users:login')
 
         login(request, user)
-        return redirect(to='users:profile')
+        return redirect(to='chat:chat')
 
     return render(request, 'users/login.html', context={"form": LoginForm()})
 
 def sign(request):
     if request.user.is_authenticated:
-        return redirect(to='users:profile')
+        return redirect(to='chat:chat')
 
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -49,7 +49,7 @@ def sign(request):
             form.save()
             user = authenticate(username=request.POST['username'], password=request.POST['password1'])
             login(request, user)
-            return redirect(to='users:profile')
+            return redirect(to='chat:chat')
         else:
             return render(request, 'users/sign.html', context={"form": form})
     return render(request, 'users/sign.html', context={"form": RegisterForm()})
