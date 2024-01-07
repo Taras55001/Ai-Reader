@@ -44,7 +44,7 @@ def ex_chat(request, chat_name):
             x.append(chat.name)
         current_chat = user_chats.get(name=chat_name, users_id=user.id)
         user_file = current_chat.doc
-        chat_replies = Message.objects.filter(chat=current_chat)
+        chat_replies = Message.objects.filter(chat=current_chat).order_by('created_at')
 
         return render(
             request,
