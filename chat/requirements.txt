@@ -1,4 +1,4 @@
-﻿Django
+Django
 python-dotenv
 psycopg2
 django-yugabytedb
@@ -10,3 +10,4 @@ docx2python
 guvicorn
 django-docs
 sphinx
+django-cron ~= 0.6.0
