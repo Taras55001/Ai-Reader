@@ -14,11 +14,9 @@ django-yugabytedb = "~ 4.0.0"
 pypdf = "~ 3.17.4"
 pillow = "~ 10.1.0"
 faiss-cpu = "~ 1.7.4"
-transformers = "~ 4.36.2"
 langchain = "^0.0.354"
 sentence-transformers = "^2.2.2"
 docx2python = "^2.7.3"
-uvicorn = "^0.25.0"
 
 
 [build-system]
