@@ -1,4 +1,4 @@
-﻿Django
+Django
 python-dotenv
 psycopg2
 django-yugabytedb

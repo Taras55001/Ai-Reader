@@ -2,33 +2,70 @@
 
 {% block title %} Chat {% endblock %}
 
+
 {% block body %}
+
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3">
-            <div style="position: absolute; top: 55px; left: 0px; width: 15%; height: 100%;">
+            <div style="position: absolute; top: 55px; left: 0px; width: 15%; height: 92.1%;">
                 <div style="background-color: #123CA9; height: calc(100%);">
+                    <a href="{% url 'chat:chat' %}" style="background-color: blue; color: white; display: block; padding: 10px; margin-bottom: 5px; text-decoration: none;">
+                        Створити новий чат
+                    </a>
                     <h1 style="color: white; text-align: center;">All Chats</h1>
+                    {% for chat in user_chats %}
+                    <a href="{% url 'chat:ex_chat' chat_name=chat %}" style="background-color: blue; color: white; display: block; padding: 10px; margin-bottom: 5px; text-decoration: none;">
+                        {{ chat }}
+                    </a>
+                    {% endfor %}
                     <hr>
                     <a href="{% url 'users:profile' %}" class="btn btn-primary">Profile</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-9" style="position: absolute; bottom: 0; left: 15%; top: 55px; width: 85%; height: 100%; background: linear-gradient(to bottom, rgba(18, 26, 213, 0.74) 0%, rgba(174, 18, 213, 0.81) 100%); padding-top: 20px; color: white;">
-            <h2 style="text-align: center;">Current Chat: In develop</h2>
-            <ul>
-                <li>In develop</li>
-                <!-- Додайте повідомлення тут -->
-            </ul>
-            <form style="position: absolute; bottom: 20px; width: calc(100% - 40px);">
-                <div class="form-group">
-                    <textarea class="form-control" rows="3" placeholder="Напишіть ваше повідомлення" style="width: 100%;"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary">Надіслати</button>
-            </form>
+        <div class="col-md-9" style="position: absolute; bottom: 0; left: 15%; top: 55px; width: 85%; height: 92.1%; background: linear-gradient(to bottom, rgba(18, 26, 213, 0.74) 0%, rgba(174, 18, 213, 0.81) 100%); padding-top: 20px; color: white;">
+            <div id="chatContainer" style="height: calc(100% - 250px); overflow-y: auto;">
+                <h2 style="text-align: center;">Current Chat: {{ current_chat.name }}</h2>
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    {% for mes in chat_replies %}
+                        <li style="background-color: rgba(255, 255, 255, 0.1); padding: 10px; margin-bottom: 5px;">{{ mes.content }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div style="position: absolute; bottom: 0; width: 85%; padding: 10px;">
+                <form method="post" action="{% url 'chat:answer' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="fileSelect" style="color: white;">Select a file</label>
+                        <select id="fileSelect" name="file" class="form-control">
+                            {% for file in user_files %}
+                                <option value="{{ file.id }}">{{ file.file.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="messageInput" style="color: white;">Write a message</label>
+                        <textarea id="messageInput" name="message" rows="2" cols="50" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Надіслати</button>
+                </form>
+            </div>
+            
         </div>
+        
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Прокрутка вниз при завантаженні сторінки
+        $('#chatContainer').scrollTop($('#chatContainer')[0].scrollHeight);
+    });
+</script>
 
 
 {% endblock %}

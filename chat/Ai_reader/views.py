@@ -85,4 +85,5 @@ def answer(request):
         model_answer = Message.objects.create(chat=chat, sender=user, content=answer)
         return redirect("chat:ex_chat", chat_name=name)
 
+
     return HttpResponse("Failed: No data sent.")
