@@ -1,12 +1,13 @@
 ﻿Django
 python-dotenv
-psycopg2-binary
+psycopg2
 django-yugabytedb
 pypdf
 Pillow
 faiss-cpu
 langchain
-sentence-transformers
-uvicorn
 docx2python
-gunicorn
+guvicorn
+django-docs
+sphinx
+django-cron
