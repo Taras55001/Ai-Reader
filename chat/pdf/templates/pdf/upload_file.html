@@ -7,7 +7,13 @@
 
     <div class="container mt-4">
         <h2>Upload Files</h2>
-
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+             </ul>
+        {% endif %}
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}

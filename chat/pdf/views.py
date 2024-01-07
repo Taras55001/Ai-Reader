@@ -8,11 +8,12 @@ from langchain.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import SentenceTransformerEmbeddings
 from django.core.files import File as DjangoFile
-
+from django.contrib import messages
 
 from django.views.generic.edit import FormView
 from .forms import FileFieldForm
 import docx2python
+
 
 class FileFieldFormView(FormView):
     form_class = FileFieldForm
@@ -36,22 +37,23 @@ class FileFieldFormView(FormView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         if form.is_valid():
-            return self.form_valid(form)
+            return self.form_valid(form, request)
         else:
             return self.form_invalid(form)
 
-    def form_valid(self, form):
+    def form_valid(self, form, request):
         files = form.cleaned_data["file_field"]
         for uploaded_file in files:
             if is_valid_type(uploaded_file):
                 title = uploaded_file.name.split(".")[0]
-                #reader = PdfReader(uploaded_file)
+                # reader = PdfReader(uploaded_file)
                 text = ""
-                """
-                for page in reader.pages:
-                    text += page.extract_text() + "\n"
-                """
                 text = get_text_from_file(uploaded_file)
+                if text == "":
+                    messages.error(
+                        request, "Текст має нульову довжину. Введіть дійсний текст."
+                    )
+                    return redirect("pdf:upload_file")
                 text_splitter = RecursiveCharacterTextSplitter(
                     chunk_size=1000, chunk_overlap=200
                 )
@@ -60,10 +62,10 @@ class FileFieldFormView(FormView):
                     model_name="all-MiniLM-L6-v2"
                 )
                 vector_db = FAISS.from_texts(chunks, embeddings)
-                with open(f"media/uploads/{title}.pkl", "wb") as f:
+                with open(f"media/{title}.pkl", "wb") as f:
                     pickle.dump(vector_db, f)
                     vector_db_file = DjangoFile(
-                        open(f"media/uploads/{title}.pkl", "rb"), name=f"{title}.pkl"
+                        open(f"media/{title}.pkl", "rb"), name=f"{title}.pkl"
                     )
                     uploaded_file_obj = UploadedFile(
                         file=uploaded_file,
@@ -71,17 +73,8 @@ class FileFieldFormView(FormView):
                         user_id=self.request.user,
                     )
                 uploaded_file_obj.save()
+
         return redirect("pdf:upload_file")
-
-
-def is_pdf(file):
-    file_name = file.name
-
-    file_extension = file_name.split(".")[-1].lower()
-    if file_extension == "pdf":
-        return True
-    else:
-        return False
 
 
 def download_file(request, file_id):
@@ -101,6 +94,7 @@ def delete_file(request, file_id):
     uploaded_file.delete()
     return redirect("pdf:upload_file")
 
+
 def is_valid_type(file):
     file_name = file.name
 
@@ -111,9 +105,7 @@ def is_valid_type(file):
         return False
 
 
-
-
-def get_text_from_pdf(file_name, show_text:bool = False):
+def get_text_from_pdf(file_name, show_text: bool = False):
     full_text = []
     try:
         reader = PdfReader(file_name)
@@ -127,6 +119,7 @@ def get_text_from_pdf(file_name, show_text:bool = False):
 
     return "\n".join(full_text)
 
+
 def get_text_from_docx(file_name):
     res = ""
     try:
@@ -135,6 +128,7 @@ def get_text_from_docx(file_name):
     except:
         res = ""
     return res
+
 
 def get_text_from_txt(file_name):
     try:
@@ -147,8 +141,9 @@ def get_text_from_txt(file_name):
 
     return file_text
 
+
 def get_text_from_file(file_name):
-    ext = file_name.name.split('.')[-1].lower()
+    ext = file_name.name.split(".")[-1].lower()
 
     if ext == "docx":
         file_text = get_text_from_docx(file_name)
@@ -158,5 +153,5 @@ def get_text_from_file(file_name):
         file_text = get_text_from_txt(file_name)
     else:
         file_text = ""
-    
+
     return file_text
