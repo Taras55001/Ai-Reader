@@ -1,4 +1,4 @@
-from langchain.llms import HuggingFaceHub
+from langchain_community.llms import HuggingFaceHub
 from langchain.chains.question_answering import load_qa_chain
 
 from transformers.utils import logging
