@@ -7,7 +7,7 @@ Pillow
 faiss-cpu
 langchain
 docx2python
-guvicorn ~= 21.2.0
+gunicorn
 django-docs
 sphinx
 django-cron
