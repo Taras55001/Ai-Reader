@@ -31,6 +31,9 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 ALLOWED_HOSTS = ["*", "http://127.0.0.1:8000", "https://ai-reader.onrender.com"]
 
 # Application definition
+DOCS_ROOT = os.path.join(BASE_DIR, "./docs/_build/html")
+DOCS_ACCESS = "staff"
+
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -42,6 +45,7 @@ INSTALLED_APPS = [
     "users",
     "pdf",
     "Ai_reader",
+    "docs",
 ]
 
 MIDDLEWARE = [
