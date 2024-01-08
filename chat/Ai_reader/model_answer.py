@@ -9,7 +9,7 @@ logging.set_verbosity_error
 
 
 def gen_text(context: str, question: str) -> str:
-    repo_id = "tiiuae/falcon-7b-instruct"
+    repo_id = "mistralai/Mixtral-8x7B-Instruct-v0.1"
     llm = HuggingFaceHub(
         repo_id=repo_id, model_kwargs={"temperature": 0.5, "max_length": 455}
     )
@@ -22,5 +22,5 @@ def gen_text(context: str, question: str) -> str:
 def answer(filename: UploadedFile, question: str) -> str:
     vector_store = pickle.load(filename.vector_db)
 
-    context = vector_store.similarity_search(query=question, k=3)
+    context = vector_store.similarity_search(query=question, k=5)
     return gen_text(context, question)

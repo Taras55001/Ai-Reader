@@ -5,6 +5,7 @@ from .model_answer import answer as ans
 from pdf.models import UploadedFile
 from .forms import ChooseFileForm
 from django.http import HttpResponse
+from django.contrib import messages
 
 
 def main(request):
@@ -44,7 +45,7 @@ def ex_chat(request, chat_name):
             x.append(chat.name)
         current_chat = user_chats.get(name=chat_name, users_id=user.id)
         user_file = current_chat.doc
-        chat_replies = Message.objects.filter(chat=current_chat)
+        chat_replies = Message.objects.filter(chat=current_chat).order_by("created_at")
 
         return render(
             request,
@@ -68,7 +69,9 @@ def answer(request):
         print(file)
         user = request.user
         user_file = UploadedFile.objects.filter(id=file)
-
+        if not user_file:
+            messages.error(request, "Please upload a file fo context")
+            return redirect("pdf:upload_file")
         message = request.POST.get("message")
         answer = ans(user_file[0], message)
         print(answer)

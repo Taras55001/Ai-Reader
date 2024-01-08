@@ -51,7 +51,7 @@ class FileFieldFormView(FormView):
                 text = get_text_from_file(uploaded_file)
                 if text == "":
                     messages.error(
-                        request, "Текст має нульову довжину. Введіть дійсний текст."
+                        request, "The text has zero length. Please choose valid text"
                     )
                     return redirect("pdf:upload_file")
                 text_splitter = RecursiveCharacterTextSplitter(
