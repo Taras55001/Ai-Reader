@@ -45,7 +45,9 @@ def ex_chat(request, chat_name):
             x.append(chat.name)
         current_chat = user_chats.get(name=chat_name, users_id=user.id)
         user_file = current_chat.doc
+
         chat_replies = Message.objects.filter(chat=current_chat).order_by("created_at")
+
 
         return render(
             request,
@@ -87,5 +89,6 @@ def answer(request):
         user_message = Message.objects.create(chat=chat, sender=user, content=message)
         model_answer = Message.objects.create(chat=chat, sender=user, content=answer)
         return redirect("chat:ex_chat", chat_name=name)
+
 
     return HttpResponse("Failed: No data sent.")
