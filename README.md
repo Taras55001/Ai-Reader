@@ -1,6 +1,10 @@
 # Ai Reader app 📝
 
 A Django project that incorporates a chatbot using a language model and supports reading PDF, DOCX, and TXT documents, allowing users to interact with the content within the documents.
+LLM models used:
+for answer generation - mistral ai/Mixtral-8x7B-Instruct-v0.1
+for word embeddings context creation - all-MiniLM-L6-v2
+vector database - FAISS
 
 ## Features
 Chatbot integration\
