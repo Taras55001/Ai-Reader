@@ -12,4 +12,5 @@ gunicorn
 django-docs
 sphinx
 django-cron
+torch
 transformers
