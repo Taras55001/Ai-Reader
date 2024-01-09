@@ -6,6 +6,7 @@ pypdf
 Pillow
 faiss-cpu
 langchain
+langchain-community
 docx2python
 gunicorn
 django-docs
