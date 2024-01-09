@@ -10,7 +10,33 @@ Welcome to Ai Reader's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+Django pdf
+=================
+.. automodule:: pdf.views
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
+Django users
+=================
+.. automodule:: users.views
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Django Ai_reader
+=================
+.. automodule:: Ai_reader.views
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Django model
+=================
+.. automodule:: Ai_reader.model_answer
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Indices and tables
 ==================

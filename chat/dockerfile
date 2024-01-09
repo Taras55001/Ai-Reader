@@ -10,6 +10,7 @@ COPY . .
 
 # Встановлення залежностей з файлу requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
+RUN  .\chat\docs\make.bat html
 
 # Позначимо порт де працює програма всередині контейнера
 EXPOSE 8000
