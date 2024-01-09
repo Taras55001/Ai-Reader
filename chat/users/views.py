@@ -3,6 +3,7 @@ The module provides work with users: registration, authentication, deleting, pro
 """
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm, LoginForm
@@ -14,12 +15,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
 
 
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
+
+@cache_page(CACHE_TTL)
 def index(request):
     return render(request, 'users/index.html', context={'title': 'Main Page'})
 
-
+@cache_page(CACHE_TTL)
 def login_s(request):
 
     if request.user.is_authenticated:
@@ -61,10 +67,13 @@ def sign(request):
             return render(request, 'users/sign.html', context={"form": form})
     return render(request, 'users/sign.html', context={"form": RegisterForm()})
 
+
+@cache_page(CACHE_TTL)
 @login_required
 def logoutuser(request):
     logout(request)
     return redirect(to='chat:main')
+
 
 def delete(request):
     """
@@ -101,10 +110,12 @@ def changed(request):
     return JsonResponse({'message': 'Помилка при обробці запиту!'}, status=400)
 
 
+@cache_page(CACHE_TTL)
 def eror_aut(request):
     return render(request, 'users/eror_aut.html')
 
 
+@cache_page(CACHE_TTL)
 def profile(request):
     if request.user.is_authenticated:
         return render(request, 'users/profile.html')

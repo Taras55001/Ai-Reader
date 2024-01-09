@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.conf import settings
 from django.urls import reverse
 from .models import Chat, Message
 from .model_answer import answer as ans
@@ -6,12 +7,18 @@ from pdf.models import UploadedFile
 from .forms import ChooseFileForm
 from django.http import HttpResponse
 from django.contrib import messages
+from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.views.decorators.cache import cache_page
+
+
+CACHE_TTL = getattr(settings, 'CACHE_TTL', DEFAULT_TIMEOUT)
 
 
 def main(request):
     return render(request, "Ai_reader/main.html")
 
 
+@cache_page(CACHE_TTL)
 def chat(request):
     user = request.user
     if request.user.is_authenticated:

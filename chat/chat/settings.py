@@ -91,6 +91,12 @@ if DEBUG:
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+            'LOCATION': '127.0.0.1:11211',
+        }
+    }
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = 'smtp.mail.com'
     EMAIL_PORT = 566
@@ -111,6 +117,12 @@ else:
             'PORT': os.getenv('DATABASE_PORT'),
         }
     }
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": "redis://default:DSrmo1dtFrNAhy8U4VS1IxAgomgJqK8Q@redis-15959.c304.europe-west1-2.gce.cloud.redislabs.com:15959",
+        }
+    }
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = os.getenv("EMAIL_HOST")
     EMAIL_PORT = os.getenv("EMAIL_PORT")
@@ -120,6 +132,12 @@ else:
     EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
     EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
+# Cache time to live is 15 minutes.
+CACHE_TTL = 60 * 15
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
