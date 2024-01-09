@@ -12,3 +12,4 @@ gunicorn
 django-docs
 sphinx
 django-cron
+transformers

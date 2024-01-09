@@ -7,9 +7,9 @@ from django.http import HttpResponse
 from .models import UploadedFile
 from django.urls import reverse
 from pypdf import PdfReader
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import SentenceTransformerEmbeddings
+from langchain_community.embeddings import SentenceTransformerEmbeddings
 from django.core.files import File as DjangoFile
 from django.contrib import messages
 
