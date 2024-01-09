@@ -6,33 +6,311 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Welcome to Ai Reader’s documentation! &#8212; Ai Reader 1.0.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=4f649999" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=039e1c02" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/nature.css?v=601dbdee" />
     <script src="_static/documentation_options.js?v=8d563738"></script>
     <script src="_static/doctools.js?v=888ff710"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="search" title="Search" href="search.html" /> 
   </head><body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Ai Reader 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to Ai Reader’s documentation!</a></li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <section id="welcome-to-ai-reader-s-documentation">
 <h1>Welcome to Ai Reader’s documentation!<a class="headerlink" href="#welcome-to-ai-reader-s-documentation" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+</section>
+<section id="module-pdf.views">
+<span id="django-pdf"></span><h1>Django pdf<a class="headerlink" href="#module-pdf.views" title="Link to this heading">¶</a></h1>
+<p>The module provides work with user files: uploading, saving, deketing, text extraction</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pdf.views.FileFieldFormView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pdf.views.</span></span><span class="sig-name descname"><span class="pre">FileFieldFormView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.FileFieldFormView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">FormView</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pdf.views.FileFieldFormView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#pdf.views.FileFieldFormView.form_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">FileFieldForm</span></code></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pdf.views.FileFieldFormView.form_valid">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.FileFieldFormView.form_valid" title="Link to this definition">¶</a></dt>
+<dd><p>The form is being checked. If the form is correct and the uploaded file contains text, the data is processed and recorded in the database</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pdf.views.FileFieldFormView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.FileFieldFormView.get" title="Link to this definition">¶</a></dt>
+<dd><p>Handle GET requests: instantiate a blank version of the form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="pdf.views.FileFieldFormView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.FileFieldFormView.post" title="Link to this definition">¶</a></dt>
+<dd><p>Handle POST requests: instantiate a form instance with the passed
+POST variables and then check if it’s valid.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pdf.views.FileFieldFormView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pdf:upload_file'</span></em><a class="headerlink" href="#pdf.views.FileFieldFormView.success_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pdf.views.FileFieldFormView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pdf/upload_file.html'</span></em><a class="headerlink" href="#pdf.views.FileFieldFormView.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pdf.views.delete_file">
+<span class="sig-prename descclassname"><span class="pre">pdf.views.</span></span><span class="sig-name descname"><span class="pre">delete_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.delete_file" title="Link to this definition">¶</a></dt>
+<dd><p>The procedure deletes file by id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The HTTP request object.</p></li>
+<li><p><strong>file_id</strong> – File id.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The HTTP response redirection</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponseRedirect</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pdf.views.download_file">
+<span class="sig-prename descclassname"><span class="pre">pdf.views.</span></span><span class="sig-name descname"><span class="pre">download_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.download_file" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pdf.views.get_text_from_docx">
+<span class="sig-prename descclassname"><span class="pre">pdf.views.</span></span><span class="sig-name descname"><span class="pre">get_text_from_docx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.get_text_from_docx" title="Link to this definition">¶</a></dt>
+<dd><p>Returns text from .docx file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>InMemoryUploadedFile</em>) – The file to process</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>text from file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pdf.views.get_text_from_file">
+<span class="sig-prename descclassname"><span class="pre">pdf.views.</span></span><span class="sig-name descname"><span class="pre">get_text_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.get_text_from_file" title="Link to this definition">¶</a></dt>
+<dd><p>Returns text from file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>InMemoryUploadedFile</em>) – The file to process</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>text from file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pdf.views.get_text_from_pdf">
+<span class="sig-prename descclassname"><span class="pre">pdf.views.</span></span><span class="sig-name descname"><span class="pre">get_text_from_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">show_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.get_text_from_pdf" title="Link to this definition">¶</a></dt>
+<dd><p>Returns text from .pdf file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>InMemoryUploadedFile</em>) – The file to process</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>text from file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pdf.views.get_text_from_txt">
+<span class="sig-prename descclassname"><span class="pre">pdf.views.</span></span><span class="sig-name descname"><span class="pre">get_text_from_txt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.get_text_from_txt" title="Link to this definition">¶</a></dt>
+<dd><p>Returns text from .txt file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>InMemoryUploadedFile</em>) – The file to process</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>text from file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pdf.views.is_valid_type">
+<span class="sig-prename descclassname"><span class="pre">pdf.views.</span></span><span class="sig-name descname"><span class="pre">is_valid_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pdf.views.is_valid_type" title="Link to this definition">¶</a></dt>
+<dd><p>The procedure checks whether the downloaded file is supported</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_name</strong> (<em>InMemoryUploadedFile</em>) – The file to process</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if file is supported</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-users.views">
+<span id="django-users"></span><h1>Django users<a class="headerlink" href="#module-users.views" title="Link to this heading">¶</a></h1>
+<p>The module provides work with users: registration, authentication, deleting, profile editing</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="users.views.ResetPasswordView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">ResetPasswordView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.ResetPasswordView" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SuccessMessageMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">PasswordResetView</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="users.views.ResetPasswordView.email_template_name">
+<span class="sig-name descname"><span class="pre">email_template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'users/password_reset_email.html'</span></em><a class="headerlink" href="#users.views.ResetPasswordView.email_template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="users.views.ResetPasswordView.html_email_template_name">
+<span class="sig-name descname"><span class="pre">html_email_template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'users/password_reset_email.html'</span></em><a class="headerlink" href="#users.views.ResetPasswordView.html_email_template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="users.views.ResetPasswordView.subject_template_name">
+<span class="sig-name descname"><span class="pre">subject_template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'users/password_reset_subject.txt'</span></em><a class="headerlink" href="#users.views.ResetPasswordView.subject_template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="users.views.ResetPasswordView.success_message">
+<span class="sig-name descname"><span class="pre">success_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'An</span> <span class="pre">email</span> <span class="pre">with</span> <span class="pre">instructions</span> <span class="pre">to</span> <span class="pre">reset</span> <span class="pre">your</span> <span class="pre">password</span> <span class="pre">has</span> <span class="pre">been</span> <span class="pre">sent</span> <span class="pre">to</span> <span class="pre">%(email)s.'</span></em><a class="headerlink" href="#users.views.ResetPasswordView.success_message" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="users.views.ResetPasswordView.success_url">
+<span class="sig-name descname"><span class="pre">success_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/users/reset-password/done/'</span></em><a class="headerlink" href="#users.views.ResetPasswordView.success_url" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="users.views.ResetPasswordView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'users/password_reset.html'</span></em><a class="headerlink" href="#users.views.ResetPasswordView.template_name" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="users.views.changed">
+<span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">changed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.changed" title="Link to this definition">¶</a></dt>
+<dd><p>Updating user info</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="users.views.delete">
+<span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.delete" title="Link to this definition">¶</a></dt>
+<dd><p>Deleting an existing user. User e-mail will be blocked permanently</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="users.views.eror_aut">
+<span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">eror_aut</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.eror_aut" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="users.views.index">
+<span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">index</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.index" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="users.views.login_s">
+<span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">login_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.login_s" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="users.views.logoutuser">
+<span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">logoutuser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.logoutuser" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="users.views.profile">
+<span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.profile" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="users.views.sign">
+<span class="sig-prename descclassname"><span class="pre">users.views.</span></span><span class="sig-name descname"><span class="pre">sign</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.sign" title="Link to this definition">¶</a></dt>
+<dd><p>Check/Create new user</p>
+</dd></dl>
+
+</section>
+<section id="module-Ai_reader.views">
+<span id="django-ai-reader"></span><h1>Django Ai_reader<a class="headerlink" href="#module-Ai_reader.views" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="Ai_reader.views.answer">
+<span class="sig-prename descclassname"><span class="pre">Ai_reader.views.</span></span><span class="sig-name descname"><span class="pre">answer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ai_reader.views.answer" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Ai_reader.views.chat">
+<span class="sig-prename descclassname"><span class="pre">Ai_reader.views.</span></span><span class="sig-name descname"><span class="pre">chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ai_reader.views.chat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Ai_reader.views.ex_chat">
+<span class="sig-prename descclassname"><span class="pre">Ai_reader.views.</span></span><span class="sig-name descname"><span class="pre">ex_chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chat_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ai_reader.views.ex_chat" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Ai_reader.views.main">
+<span class="sig-prename descclassname"><span class="pre">Ai_reader.views.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Ai_reader.views.main" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-Ai_reader.model_answer">
+<span id="django-model"></span><h1>Django model<a class="headerlink" href="#module-Ai_reader.model_answer" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="Ai_reader.model_answer.answer">
+<span class="sig-prename descclassname"><span class="pre">Ai_reader.model_answer.</span></span><span class="sig-name descname"><span class="pre">answer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UploadedFile</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Ai_reader.model_answer.answer" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Ai_reader.model_answer.gen_text">
+<span class="sig-prename descclassname"><span class="pre">Ai_reader.model_answer.</span></span><span class="sig-name descname"><span class="pre">gen_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">question</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#Ai_reader.model_answer.gen_text" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading">¶</a></h1>
@@ -44,30 +322,78 @@
 </section>
 
 
+            <div class="clearer"></div>
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">Ai Reader</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-  </ul></li>
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Welcome to Ai Reader’s documentation!</a></li>
+<li><a class="reference internal" href="#module-pdf.views">Django pdf</a><ul>
+<li><a class="reference internal" href="#pdf.views.FileFieldFormView"><code class="docutils literal notranslate"><span class="pre">FileFieldFormView</span></code></a><ul>
+<li><a class="reference internal" href="#pdf.views.FileFieldFormView.form_class"><code class="docutils literal notranslate"><span class="pre">FileFieldFormView.form_class</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.FileFieldFormView.form_valid"><code class="docutils literal notranslate"><span class="pre">FileFieldFormView.form_valid()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.FileFieldFormView.get"><code class="docutils literal notranslate"><span class="pre">FileFieldFormView.get()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.FileFieldFormView.post"><code class="docutils literal notranslate"><span class="pre">FileFieldFormView.post()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.FileFieldFormView.success_url"><code class="docutils literal notranslate"><span class="pre">FileFieldFormView.success_url</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.FileFieldFormView.template_name"><code class="docutils literal notranslate"><span class="pre">FileFieldFormView.template_name</span></code></a></li>
 </ul>
-</div>
+</li>
+<li><a class="reference internal" href="#pdf.views.delete_file"><code class="docutils literal notranslate"><span class="pre">delete_file()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.download_file"><code class="docutils literal notranslate"><span class="pre">download_file()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.get_text_from_docx"><code class="docutils literal notranslate"><span class="pre">get_text_from_docx()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.get_text_from_file"><code class="docutils literal notranslate"><span class="pre">get_text_from_file()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.get_text_from_pdf"><code class="docutils literal notranslate"><span class="pre">get_text_from_pdf()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.get_text_from_txt"><code class="docutils literal notranslate"><span class="pre">get_text_from_txt()</span></code></a></li>
+<li><a class="reference internal" href="#pdf.views.is_valid_type"><code class="docutils literal notranslate"><span class="pre">is_valid_type()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-users.views">Django users</a><ul>
+<li><a class="reference internal" href="#users.views.ResetPasswordView"><code class="docutils literal notranslate"><span class="pre">ResetPasswordView</span></code></a><ul>
+<li><a class="reference internal" href="#users.views.ResetPasswordView.email_template_name"><code class="docutils literal notranslate"><span class="pre">ResetPasswordView.email_template_name</span></code></a></li>
+<li><a class="reference internal" href="#users.views.ResetPasswordView.html_email_template_name"><code class="docutils literal notranslate"><span class="pre">ResetPasswordView.html_email_template_name</span></code></a></li>
+<li><a class="reference internal" href="#users.views.ResetPasswordView.subject_template_name"><code class="docutils literal notranslate"><span class="pre">ResetPasswordView.subject_template_name</span></code></a></li>
+<li><a class="reference internal" href="#users.views.ResetPasswordView.success_message"><code class="docutils literal notranslate"><span class="pre">ResetPasswordView.success_message</span></code></a></li>
+<li><a class="reference internal" href="#users.views.ResetPasswordView.success_url"><code class="docutils literal notranslate"><span class="pre">ResetPasswordView.success_url</span></code></a></li>
+<li><a class="reference internal" href="#users.views.ResetPasswordView.template_name"><code class="docutils literal notranslate"><span class="pre">ResetPasswordView.template_name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#users.views.changed"><code class="docutils literal notranslate"><span class="pre">changed()</span></code></a></li>
+<li><a class="reference internal" href="#users.views.delete"><code class="docutils literal notranslate"><span class="pre">delete()</span></code></a></li>
+<li><a class="reference internal" href="#users.views.eror_aut"><code class="docutils literal notranslate"><span class="pre">eror_aut()</span></code></a></li>
+<li><a class="reference internal" href="#users.views.index"><code class="docutils literal notranslate"><span class="pre">index()</span></code></a></li>
+<li><a class="reference internal" href="#users.views.login_s"><code class="docutils literal notranslate"><span class="pre">login_s()</span></code></a></li>
+<li><a class="reference internal" href="#users.views.logoutuser"><code class="docutils literal notranslate"><span class="pre">logoutuser()</span></code></a></li>
+<li><a class="reference internal" href="#users.views.profile"><code class="docutils literal notranslate"><span class="pre">profile()</span></code></a></li>
+<li><a class="reference internal" href="#users.views.sign"><code class="docutils literal notranslate"><span class="pre">sign()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-Ai_reader.views">Django Ai_reader</a><ul>
+<li><a class="reference internal" href="#Ai_reader.views.answer"><code class="docutils literal notranslate"><span class="pre">answer()</span></code></a></li>
+<li><a class="reference internal" href="#Ai_reader.views.chat"><code class="docutils literal notranslate"><span class="pre">chat()</span></code></a></li>
+<li><a class="reference internal" href="#Ai_reader.views.ex_chat"><code class="docutils literal notranslate"><span class="pre">ex_chat()</span></code></a></li>
+<li><a class="reference internal" href="#Ai_reader.views.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-Ai_reader.model_answer">Django model</a><ul>
+<li><a class="reference internal" href="#Ai_reader.model_answer.answer"><code class="docutils literal notranslate"><span class="pre">answer()</span></code></a></li>
+<li><a class="reference internal" href="#Ai_reader.model_answer.gen_text"><code class="docutils literal notranslate"><span class="pre">gen_text()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -78,32 +404,26 @@
     </div>
 </div>
 <script>document.getElementById('searchbox').style.display = "block"</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2024, BlackJack.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.2.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">Ai Reader 1.0.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Welcome to Ai Reader’s documentation!</a></li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024, BlackJack.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
   </body>
 </html>

@@ -1,3 +1,6 @@
+"""
+The module provides work with users: registration, authentication, deleting, profile editing
+"""
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -18,6 +21,7 @@ def index(request):
 
 
 def login_s(request):
+
     if request.user.is_authenticated:
         return redirect(to='users:profile')
 
@@ -33,6 +37,9 @@ def login_s(request):
     return render(request, 'users/login.html', context={"form": LoginForm()})
 
 def sign(request):
+    """
+    Check/Create new user
+    """
     if request.user.is_authenticated:
         return redirect(to='chat:chat')
 
@@ -60,6 +67,9 @@ def logoutuser(request):
     return redirect(to='chat:main')
 
 def delete(request):
+    """
+    Deleting an existing user. User e-mail will be blocked permanently
+    """
     if request.method == 'POST':
 
         user = request.user 
@@ -73,6 +83,9 @@ def delete(request):
 
 
 def changed(request):
+    """
+    Updating user info
+    """
     if request.method == 'POST':
         data = json.loads(request.body)
         new_username = data.get('username')
