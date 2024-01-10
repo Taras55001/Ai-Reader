@@ -28,7 +28,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY")
 
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ["*", "http://127.0.0.1:8000", "https://ai-reader.onrender.com"]
@@ -92,9 +92,9 @@ if DEBUG:
         }
     }
     CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': '127.0.0.1:11211',
+        "default": {
+            "BACKEND": "django.core.cache.backends.redis.RedisCache",
+            "LOCATION": f'redis://default:{os.getenv("REDIS_PASSWORD")}@{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}',
         }
     }
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
@@ -120,7 +120,7 @@ else:
     CACHES = {
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
-            "LOCATION": "redis://default:DSrmo1dtFrNAhy8U4VS1IxAgomgJqK8Q@redis-15959.c304.europe-west1-2.gce.cloud.redislabs.com:15959",
+            "LOCATION": f'redis://default:{os.getenv("REDIS_PASSWORD")}@{os.getenv("REDIS_HOST")}:{os.getenv("REDIS_PORT")}',
         }
     }
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
