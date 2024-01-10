@@ -1,3 +1,6 @@
+"""
+The module provides work with chat: getting questions, rendering answers
+"""
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Chat, Message
@@ -9,6 +12,9 @@ from django.contrib import messages
 
 
 def main(request):
+    """
+    Render chat page
+    """
     return render(request, "Ai_reader/main.html")
 
 
@@ -66,6 +72,9 @@ def ex_chat(request, chat_name):
 
 
 def answer(request):
+    """
+    The procedure displays received questions and generated answers on the chat page
+    """
     if request.method == "POST":
         file = request.POST.get("file")
         print(file)
