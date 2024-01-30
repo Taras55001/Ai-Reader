@@ -3,3 +3,4 @@ config.ini
 .idea
 .history
 _pycache_
+fly.toml
