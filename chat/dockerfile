@@ -23,4 +23,10 @@ COPY . /code
 
 EXPOSE 8000
 
+<<<<<<< HEAD
 CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "chat.wsgi"]
+=======
+# Запустимо нашу програму всередині контейнера
+
+CMD ["gunicorn", "chat.wsgi:application", "--host", "0.0.0.0", "--port", "8000"]
+>>>>>>> 573f2356457a1e3239eff9b7c8da98792e15620e

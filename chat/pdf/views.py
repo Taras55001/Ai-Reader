@@ -1,3 +1,6 @@
+"""
+The module provides work with user files: uploading, saving, deketing, text extraction
+"""
 from django.shortcuts import render, redirect
 import pickle
 from django.http import HttpResponse
@@ -42,6 +45,9 @@ class FileFieldFormView(FormView):
             return self.form_invalid(form)
 
     def form_valid(self, form, request):
+        """
+        The form is being checked. If the form is correct and the uploaded file contains text, the data is processed and recorded in the database
+        """
         files = form.cleaned_data["file_field"]
         for uploaded_file in files:
             if is_valid_type(uploaded_file):
@@ -89,6 +95,15 @@ def download_file(request, file_id):
 
 
 def delete_file(request, file_id):
+    """
+    The procedure deletes file by id
+    
+    :param request: The HTTP request object.
+    :type request: HttpRequest
+    :param file_id: File id.
+    :return: The HTTP response redirection
+    :rtype: HttpResponseRedirect
+"""
     uploaded_file = UploadedFile.objects.get(pk=file_id)
     uploaded_file.file.delete()
     uploaded_file.delete()
@@ -96,6 +111,14 @@ def delete_file(request, file_id):
 
 
 def is_valid_type(file):
+    """
+    The procedure checks whether the downloaded file is supported
+    
+    :param file_name: The file to process
+    :type file_name: InMemoryUploadedFile
+    :return: True if file is supported
+    :rtype: Bool
+"""
     file_name = file.name
 
     file_extension = file_name.split(".")[-1].lower()
@@ -106,6 +129,14 @@ def is_valid_type(file):
 
 
 def get_text_from_pdf(file_name, show_text: bool = False):
+    """
+    Returns text from .pdf file
+
+    :param file_name: The file to process
+    :type file_name: InMemoryUploadedFile
+    :return: text from file
+    :rtype: str
+    """
     full_text = []
     try:
         reader = PdfReader(file_name)
@@ -121,6 +152,14 @@ def get_text_from_pdf(file_name, show_text: bool = False):
 
 
 def get_text_from_docx(file_name):
+    """
+    Returns text from .docx file
+
+    :param file_name: The file to process
+    :type file_name: InMemoryUploadedFile
+    :return: text from file
+    :rtype: Str
+    """
     res = ""
     try:
         docx = docx2python.docx2python(file_name)
@@ -131,6 +170,14 @@ def get_text_from_docx(file_name):
 
 
 def get_text_from_txt(file_name):
+    """
+    Returns text from .txt file. 
+
+    :param file_name: The file to process
+    :type file_name: InMemoryUploadedFile
+    :return: text from file
+    :rtype: str
+    """
     try:
         file_text = ""
 
@@ -143,6 +190,14 @@ def get_text_from_txt(file_name):
 
 
 def get_text_from_file(file_name):
+    """
+    Returns text from file
+
+    :param file_name: The file to process
+    :type file_name: InMemoryUploadedFile
+    :return: text from file
+    :rtype: str
+    """
     ext = file_name.name.split(".")[-1].lower()
 
     if ext == "docx":

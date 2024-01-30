@@ -22,5 +22,6 @@ def gen_text(context: str, question: str) -> str:
 def answer(filename: UploadedFile, question: str) -> str:
     vector_store = pickle.load(filename.vector_db)
 
+
     context = vector_store.similarity_search(query=question, k=5)
     return gen_text(context, question)
